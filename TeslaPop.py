@@ -12,9 +12,16 @@ import bitstring
 #for updates or to report bugs.
 #I ( PickedItMate) accept no responsibility for your use of this script.
 
-#transmits 5 times the binary sequence 00010101010101010101010101010001010110010100110010110101010101010101001011010101010010110100101011010011010011001010101101001011000101011001010011001011001100110011001100101101010101001011010001010110100110100110010101011010010010001010110011000110010110011001100110011001011010011010010110110010101101001101010000101010110100101000
+#Thanks first and foremost to at1as and the community for making rfcat, 
+#GSG for creating the YardstickOne we all know and love,
+#nocomp for testing and confirming the code
+#Greetz to Jimi, NotPike, JLynx, and everyone on the Mayhem discord for inspiration.
+#TINS gets greets on his own line, my nerdy brother from another mother.
+
+#Transmits 5 times the binary sequence 00010101010101010101010101010001010110010100110010110101010101010101001011010101010010110100101011010011010011001010101101001011000101011001010011001011001100110011001100101101010101001011010001010110100110100110010101011010010010001010110011000110010110011001100110011001011010011010010110110010101101001101010000101010110100101000
 #converted to hexadecimal and zero padded at the end for a full packet 15555551594CB55552D54B4AD34CAB4B1594CB33332D54B4569A655A48ACC659999969A5B2B4D42AD280
 
+#I will be adding the ability to run this script and send only when Fbutton 22 is pressed (when using a staples BIG red button)
 
 d = RfCat()
 
@@ -31,24 +38,21 @@ def ConfigureD(d):
 try:
     #d.makePktFLEN(len(42))
     d.RFxmit((b'\x15\x55\x55\x51\x59\x4C\xB5\x55\x52\xD5\x4B\x4A\xD3\x4C\xAB\x4B\x15\x94\xCB\x33\x33\x2D\x54\xB4\x56\x9A\x65\x5A\x48\xAC\xC6\x59\x99\x99\x69\xA5\xB2\xB4\xD4\x2A\xD2\x80'*5))
-    except Exception as e:
-        print ("Lost communication to USB device.. waiting 3 seconds, then retrying.")
-        time.sleep(3)
-        ConfigureD(d)
+    d.setModeIDLE()
+except Exception as e:
+    print ("Lost communication to USB device.. waiting 3 seconds, then retrying.")
+    time.sleep(3)
+    ConfigureD(d)
 
-        if(results.repeatTimes == 1):
-            if(startn >= adder):
-                startn = startn - adder
-                endy = endy - adder
-        elif(results.repeatTimes >= 2):
-            if(startn >= 1):
-                startn = startn - 1
-                endy = endy - 1
+    if(results.repeatTimes == 1):
+        if(startn >= adder):
+            startn = startn - adder
+            endy = endy - adder
+    elif(results.repeatTimes >= 2):
+        if(startn >= 1):
+            startn = startn - 1
+            endy = endy - 1
 
 print ("")
 print ("Done.")
 d.setModeIDLE()
-
-
-
-
