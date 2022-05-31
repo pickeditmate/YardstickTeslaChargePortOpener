@@ -33,7 +33,7 @@ def ConfigureD(d):
     #d.setBaudRate(2500)
     #d.setMaxPower()
     d.setAmpMode(1)
-	
+ConfigureD(d)	
 
 try:
     #d.makePktFLEN(len(42))
